@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather/backend.dart';
+import 'package:weather/location.dart';
 import 'package:weather/constants.dart';
 
 class CityScreen extends StatelessWidget {
@@ -24,9 +24,9 @@ class CityScreen extends StatelessWidget {
                   style: kButtontextStyle,
                 ),
                 onPressed: () async {
-                  var oBackend = new Backend_Weather();
-                  var position = await oBackend.determinePosition();
-                  print(position);
+                  var oLocation = new Location();
+                  var position = await oLocation.determinePosition();
+                  print("Latitude: ${position.latitude}, longitude: ${position.longitude}");
                 })
           ],
         )

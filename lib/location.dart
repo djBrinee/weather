@@ -1,6 +1,9 @@
 import 'package:geolocator/geolocator.dart';
 
-class Backend_Weather {
+class Location {
+  final String _longitude = "";
+  final String _latitude = "";
+
   Future<Position> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
