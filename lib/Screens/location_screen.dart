@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather/Constants/constants.dart';
-import 'package:weather/Logic/weather.dart';
+import 'package:weather/constants/constants.dart';
+import 'package:weather/logic/weather.dart';
 import 'dart:convert';
 
 class LocScreen extends StatefulWidget {
@@ -93,10 +93,10 @@ class _LocScreenState extends State<LocScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 15.0),
+                padding: EdgeInsets.all(10.0),
                 child: Text(
                   "${time} in ${cityName}!",
-                  textAlign: TextAlign.right,
+                  textAlign: TextAlign.center,
                   style: kMessageTextStyle,
                 ),
               ),

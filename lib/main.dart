@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather/Screens/loading_screen.dart';
+import 'package:weather/screens/loading_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -14,10 +14,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Material App',
+      title: 'Weather App',
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Material App Bar'),
+          title: const Text('Weather App'),
         ),
         body: LoadingScreen(),
       ),
