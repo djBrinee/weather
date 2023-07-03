@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/city_screen.dart';
+import 'package:weather/loading_screen.dart';
 import 'package:weather/location.dart';
 import 'package:weather/location_screen.dart';
 
@@ -22,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   void _printData() async {
     Location oLocation = new Location();
     var _cords = await oLocation.determinePosition();
-    print("Altitude: ${_cords.altitude}, longitude: ${_cords.longitude}");
+    print("Latitude: ${_cords.latitude}, longitude: ${_cords.longitude}");
   }
 
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Material App Bar'),
         ),
-        body: LocationScreen(),
+        body: LoadingScreen(),
       ),
     );
   }

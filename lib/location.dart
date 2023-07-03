@@ -1,8 +1,8 @@
 import 'package:geolocator/geolocator.dart';
 
 class Location {
-  final String _longitude = "";
-  final String _latitude = "";
+  double? longitude = 0;
+  double? latitude = 0;
 
   Future<Position> determinePosition() async {
     bool serviceEnabled;
@@ -29,6 +29,11 @@ class Location {
           'Location permissions are permanently denied, we cannot request permissions.');
     }
     // If permission is allowed and the service is enabled, the code will return current position (latitude and longitude)
-    return await Geolocator.getCurrentPosition();
+    var a = await Geolocator.getCurrentPosition();
+
+    latitude = a.latitude;
+    longitude = a.longitude;
+    
+    return a;
   }
 }

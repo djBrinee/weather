@@ -25,6 +25,7 @@ class LocationScreen extends StatelessWidget {
           ),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               "32º",
@@ -37,7 +38,8 @@ class LocationScreen extends StatelessWidget {
             )
           ],
         ),
-        Wrap(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               "I's",

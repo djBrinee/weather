@@ -1,36 +1,109 @@
 import 'package:flutter/material.dart';
-import 'package:weather/location.dart';
 import 'package:weather/constants.dart';
+import 'package:weather/weather.dart';
+import 'dart:convert';
 
-class CityScreen extends StatelessWidget {
-  const CityScreen({super.key});
+class LocScreen extends StatefulWidget {
+  LocScreen({super.key, required this.locationWeather});
+
+  final locationWeather;
+
+  @override
+  _LocScreenState createState() => _LocScreenState();
+}
+
+class _LocScreenState extends State<LocScreen> {
+  WeatherModel weather = WeatherModel();
+  var temperature;
+  String? weatherIcon;
+  String time = '';
+  var cityName;
+  String celsiusTemp = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    updateUI(widget.locationWeather);
+  }
+
+  void updateUI(dynamic weatherData) {
+    Map<String, dynamic> jsonMap = jsonDecode(widget.locationWeather);
+    var temp = jsonMap['current']['temp'];
+    temperature = temp.toInt();
+    var condition = jsonMap['current']['weather'][0]['id'];
+    cityName = jsonMap['timezone'].replaceAll('/', ", ").replaceAll('_', ' ');
+    celsiusTemp = (temp - 273.15).toStringAsFixed(2);
+    weatherIcon = weather.getWeatherIcon(condition);
+    time = weather.getMessage(temperature);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 25, bottom: 50),
-          child: Row(
-            children: [Icon(Icons.arrow_back, color: Colors.blue, size: 55)],
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/location_background.jpg'),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.8), BlendMode.dstATop),
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-                child: Text(
-                  "Get Weather",
-                  style: kButtontextStyle,
+        constraints: BoxConstraints.expand(),
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  TextButton(
+                    onPressed: () {},
+                    child: Icon(
+                      Icons.near_me,
+                      size: 50.0,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Icon(
+                      Icons.location_city,
+                      size: 50.0,
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      '${celsiusTemp}°C',
+                      //'32°',
+                      style: kTempTextStyle,
+                    ),
+                    Text(
+                      weatherIcon.toString(),
+                      //'☀️',
+                      style: kConditionTextStyle,
+                    ),
+                  ],
                 ),
-                onPressed: () async {
-                  var oLocation = new Location();
-                  var position = await oLocation.determinePosition();
-                  print("Latitude: ${position.latitude}, longitude: ${position.longitude}");
-                })
-          ],
-        )
-      ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: 15.0),
+                child: Text(
+                  "${time} in ${cityName}!",
+                  textAlign: TextAlign.right,
+                  style: kMessageTextStyle,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
