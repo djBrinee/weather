@@ -8,7 +8,7 @@ class Networking {
   final String url;
 
   Future getWeather() async {
-    var response = await http.get(Uri.parse(url));
+    final response = await http.get(Uri.parse(url));
     return response.body;
   }
 }
