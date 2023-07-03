@@ -23,10 +23,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     Networking oNetworking = Networking(
         url:
             'https://api.openweathermap.org/data/2.5/onecall?lat=${oLocation.latitude}&lon=${oLocation.longitude}&appid=ab225a718a4dd4e8290c8a649166e7bc');
-    print(oLocation.latitude);
-    print(oLocation.longitude);
     var weatherData = await oNetworking.getWeather();
-    print(weatherData.toString());
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(

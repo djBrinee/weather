@@ -13,17 +13,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  void initState() {
-    super.initState();
-    _printData();
-  }
-
-  void _printData() async {
-    Location oLocation = new Location();
-    var _cords = await oLocation.determinePosition();
-    print("Latitude: ${_cords.latitude}, longitude: ${_cords.longitude}");
-  }
-
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
