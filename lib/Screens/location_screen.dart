@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather/constants.dart';
-import 'package:weather/weather.dart';
+import 'package:weather/Constants/constants.dart';
+import 'package:weather/Logic/weather.dart';
 import 'dart:convert';
 
 class LocScreen extends StatefulWidget {
