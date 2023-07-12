@@ -3,6 +3,8 @@ import 'package:weather/constants/constants.dart';
 import 'package:weather/logic/weather.dart';
 import 'dart:convert';
 
+import 'package:weather/screens/city_screen.dart';
+
 class LocScreen extends StatefulWidget {
   LocScreen({super.key, required this.locationWeather});
 
@@ -66,7 +68,10 @@ class _LocScreenState extends State<LocScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => CityScreen()));
+                    },
                     child: Icon(
                       Icons.location_city,
                       size: 50.0,
