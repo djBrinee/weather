@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:weather/constants/constants.dart';
 import 'package:weather/logic/location.dart';
 import 'package:weather/logic/networking.dart';
 import 'package:weather/screens/location_screen.dart';
@@ -20,9 +21,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   dynamic _getWeather() async {
     Location oLocation = new Location();
     var _cords = await oLocation.determinePosition();
-    Networking oNetworking = Networking(
-        url:
-            'https://api.openweathermap.org/data/2.5/onecall?lat=${oLocation.latitude}&lon=${oLocation.longitude}&appid=ab225a718a4dd4e8290c8a649166e7bc');
+    Networking oNetworking = Networking(url:getUrlForCurrent(oLocation.latitude, oLocation.longitude));
     var weatherData = await oNetworking.getWeather();
     Navigator.pushReplacement(
       context,

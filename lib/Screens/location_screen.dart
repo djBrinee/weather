@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:weather/constants/constants.dart';
+import 'package:weather/logic/networking.dart';
 import 'package:weather/logic/weather.dart';
 import 'dart:convert';
 
@@ -24,13 +26,12 @@ class _LocScreenState extends State<LocScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     updateUI(widget.locationWeather);
   }
 
   void updateUI(dynamic weatherData) {
-    Map<String, dynamic> jsonMap = jsonDecode(widget.locationWeather);
+    Map<String, dynamic> jsonMap = jsonDecode(weatherData);
     var temp = jsonMap['current']['temp'];
     temperature = temp.toInt();
     var condition = jsonMap['current']['weather'][0]['id'];
@@ -38,6 +39,7 @@ class _LocScreenState extends State<LocScreen> {
     celsiusTemp = (temp - 273.15).toStringAsFixed(2);
     weatherIcon = weather.getWeatherIcon(condition);
     time = weather.getMessage(temperature);
+    setState(() {});
   }
 
   @override
@@ -61,16 +63,22 @@ class _LocScreenState extends State<LocScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      updateUI(widget.locationWeather);
+                    },
                     child: Icon(
                       Icons.near_me,
                       size: 50.0,
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      var response = await Navigator.push(
                           context, MaterialPageRoute(builder: (context) => CityScreen()));
+                      if (response != null) {
+                        updateUI(response);
+                        print(response);
+                      }
                     },
                     child: Icon(
                       Icons.location_city,

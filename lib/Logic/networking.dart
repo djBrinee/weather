@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
+import 'package:weather/constants/constants.dart';
 
 class Networking {
   // String key = "693a1dac4f35c56894d35aea261313b9";
@@ -10,5 +13,19 @@ class Networking {
   Future getWeather() async {
     final response = await http.get(Uri.parse(url));
     return response.body;
+  }
+
+  Future getWeatherSearched() async {
+    final response = await http.get(Uri.parse(url));
+    var firstStuff = jsonDecode(response.body);
+
+    double lat = firstStuff['coord']['lat'];
+    double lon = firstStuff['coord']['lon'];
+
+    var newUrl = getUrlForCurrent(lat, lon);
+
+    final result = await http.get(Uri.parse(newUrl));
+
+    return result.body;
   }
 }
